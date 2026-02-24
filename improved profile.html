@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved profile</title>
+    <style>
+        .card{
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 600px;
+            background-color: #4F3130 ;
+            border: 2px solid beige;
+            border-radius: 10px;
+            padding: 50px;
+        }
+        .main-card img{
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .main-card{
+            flex: 2;
+            background-color: #D8BD8A;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+        .preview{
+            flex: 1;
+            background-color: #D8D78F;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 12px;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+        }
+        .profile img{
+            height: 100px;
+            width: 100px;
+            object-fit: cover;
+            
+        }
+        .profile{
+            height: 100px;
+            width: 100px;
+            border-radius: 50px;
+            overflow: hidden;
+            border: 2px solid black;
+            
+        }
+        .main-card input,
+        .main-card textarea{
+            width: 80%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+        }
+        .main-card button{
+            padding: 6px 14px;
+            font-size: 14px;
+            width: auto;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="main-card">
+            <input type="text" id="name" placeholder="Enter name">
+            <input type="text" id="age" placeholder="Enter age">
+            <textarea id="bio" placeholder="Enter a bio"></textarea>
+        </div>
+        <div class="preview" id="preview-card">
+            <div class="profile">
+               <img src="https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg">
+            </div>
+            <h2 id="preview-name">Your Name</h2>
+            <p id="preview-age">Age</p>
+            <p id="preview-bio">Bio</p>
+        </div>
+        <select id="theme">
+            <option value="#D8D78F">Yellow</option>
+            <option value="#FFD1DC">Pink</option>
+            <option value="#CDE7FF">Blue</option>
+        </select>
+
+        <button id="downloadBtn">Download ID Card</button>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+       const nameInput = document.getElementById("name");
+       const ageInput = document.getElementById("age");
+       const bioInput = document.getElementById("bio");
+       
+       nameInput.addEventListener("input", function(){
+        document.getElementById("preview-name").textContent = nameInput.value;
+       });
+
+       ageInput.addEventListener("input", function(){
+        document.getElementById("preview-age").textContent = ageInput.value;
+       });
+
+       bioInput.addEventListener("input", function(){
+        document.getElementById("preview-bio").textContent = bioInput.value;
+       });
+
+       const theme = document.getElementById("theme");
+       const preview = document.querySelector(".preview");
+
+       theme.addEventListener("change", function(){
+        preview.style.backgroundColor = theme.value
+       });
+
+       const downloadBtn = document.getElementById("downloadBtn");
+
+       downloadBtn.addEventListener("click", function(){
+        const card = document.getElementById("preview-card");
+
+        html2canvas(card).then(canvas => {
+            const link = document.createElement("a");
+            link.download = "id-card.png";
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+
+       });
+    </script>
+</body>
+</html>
